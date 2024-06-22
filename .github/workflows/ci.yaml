@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  schedule:
+    - cron: "0 9 * * *"
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: hello world from python
+        shell: python
+        run: |
+          print("Hello, World!")
+
+      - name: install numpy
+        shell: sh
+        run: |
+          pip install numpy
+
+      - name: test numpy
+        shell: python
+        run: |
+          import numpy as np
+
+          a = np.array([1, 2, 3])
+          b = np.array([4, 5, 6])
+          print(a + b)
